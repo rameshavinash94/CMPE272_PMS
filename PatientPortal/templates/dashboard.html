@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+  <h1 class="text-center">Dashboard</h1>
+  <div class="row">
+    <div class="col-sm-8 offset-sm-2">
+      <h3><p>Welcome to the PMS dashboard, {{ g.user.profile.firstName }}!</p></h3>
+    </div>
+          <br>
+<h3><p>Your Current Appointments</p></h3>
+    <br>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Doctor</th>
+      <th scope="col">Specialization</th>
+		<th scope="col">Appointment Date/Time</th>
+		<th scope="col">Booking Date/Time</th>
+		<th scope="col">Appointment Status</th>
+      <th scope="col">Cancel Appointment</th>
+    </tr>
+  </thead>
+<tbody>
+    {% for x in upcoming_appointments %}
+    <tr>
+      <form method="POST" action="{{ url_for('cancel_appointments') }}">
+      <th scope="row">{{ loop.index }}</th>
+      <td><b>{{ x[0] }}</b></td>
+      <td><b>{{ x[1] }}</b></td>
+      <td><b>{{ x[2] }}</b></td>
+      <td><b>{{ x[3] }}</b></td>
+      <td><b>upcoming</b></td>
+      <td><button type="button" id="cancel" class="btn btn-warning" data-toggle="modal" value= "{{ x[2] }}"  data-target="#exampleModalCenter">Cancel Appointment</button></td>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Cancel Appointment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Any reason for Cancellation:
+        <input name="Cancel_Reason" id="reason" type="text" class="form-control" placeholder="Your Reason">
+        <input type="hidden" id="get_date" name="get_date" value="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" id="save_values" value="">Save changes</button>
+      </form>
+        </div>
+    </div>
+  </div>
+</div>
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+
+<h3><p>Cancelled Appointments</p></h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Doctor</th>
+      <th scope="col">Specialization</th>
+		<th scope="col">Appointment Date/Time</th>
+		<th scope="col">Booking Date/Time</th>
+		<th scope="col">Appointment Status</th>
+        <th scope="col">Cancellation reason if Any</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for x in cancelled_appointments %}
+    <tr>
+      <th scope="row">{{loop.index}}</th>
+      <td><b>{{ x[0] }}</b></td>
+      <td><b>{{ x[1] }}</b></td>
+      <td><b>{{ x[2] }}</b></td>
+      <td><b>{{ x[3] }}</b></td>
+      <td class="table-danger"><b>Cancelled</b></td>
+      <td><b>{{ x[4] }}</b></td>
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+<h3><p>Completed Appointments</p></h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Doctor</th>
+      <th scope="col">Specialization</th>
+		<th scope="col">Appointment Date/Time</th>
+		<th scope="col">Booking Date/Time</th>
+		<th scope="col">Appointment Status</th>
+  </thead>
+  <tbody>
+    {% for x in completed_appointments %}
+    <tr>
+      <th scope="row">{{ loop.index }}</th>
+      <td><b>{{ x[0] }}</b></td>
+      <td><b>{{ x[1] }}</b></td>
+      <td><b>{{ x[2] }}</b></td>
+      <td><b>{{ x[3] }}</b></td>
+      <td class="table-success"><b>Completed</b></td>
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+</div>
+  <script type="text/javascript">
+        $("#cancel").click(function () {
+            var date = document.getElementById('cancel').value
+            document.getElementById('get_date').value = date
+            });
+</script>
+{% endblock %}

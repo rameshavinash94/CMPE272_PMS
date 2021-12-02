@@ -1,0 +1,52 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
+    <meta name="author" content="themefisher.com">
+  
+    <title>Doctor details</title>
+    <!-- bootstrap.min css -->
+    <link rel="stylesheet" href="/static/styles/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Icon Font Css -->
+    <link rel="stylesheet" href="/static/styles/plugins/icofont/icofont.min.css">
+    <!-- Slick Slider  CSS -->
+    <link rel="stylesheet" href="/static/styles/plugins/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="/static/styles/plugins/slick-carousel/slick/slick-theme.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="static/styles/style.css">
+</head>
+{% extends "layout.html" %}
+{% block body %}
+<section class="page-title bg-1">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="block text-center">
+            <h1 class="text-capitalize mb-5 text-lg">Doctor details</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<!-- Hover over table-->
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Doctor Name</th>
+        <th scope="col">Specialization</th>
+          <th scope="col">Ratings</th>
+    </thead>
+    <tbody>
+      {% for x in value %}
+      <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td><b>{{ x[0] }}</b></td>
+        <td><b>{{ x[2] }}</b></td>
+        <td><b>{{ x[1] }}</b></td>
+      {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+
+{% endblock %}
