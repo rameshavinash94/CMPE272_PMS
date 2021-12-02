@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>PMS</title>
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="static/styles/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Icon Font Css -->
+  <link rel="stylesheet" href="static/styles/plugins/icofont/icofont.min.css">
+  <!-- Slick Slider  CSS -->
+  <link rel="stylesheet" href="static/styles/plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="static/styles/plugins/slick-carousel/slick/slick-theme.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="static/styles/style.css">
+</head>
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+         {% if messages %}
+    <div class="alert alert-warning">
+               {% for message in messages %}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+    </div>
+               {% endfor %}
+         {% endif %}
+      {% endwith %}
+</div>
+<section class="page-title bg-1">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <span class="text-white">Contact Us</span>
+          <h1 class="text-capitalize mb-5 text-lg">Get in Touch</h1>
+
+          <!-- <ul class="list-inline breadcumb-nav">
+            <li class="list-inline-item"><a href="index.html" class="text-white">Home</a></li>
+            <li class="list-inline-item"><span class="text-white">/</span></li>
+            <li class="list-inline-item"><a href="#" class="text-white-50">Contact Us</a></li>
+          </ul> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- contact form start -->
+
+<section class="section contact-info pb-0">
+    <div class="container">
+         <div class="row">
+            <div class="col-lg-4 col-sm-6 col-md-6">
+                <div class="contact-block mb-4 mb-lg-0">
+                    <i class="icofont-live-support"></i>
+                    <h5>Call Us</h5>
+                     +408-***-****
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-md-6">
+                <div class="contact-block mb-4 mb-lg-0">
+                    <i class="icofont-support-faq"></i>
+                    <h5>Email Us</h5>
+                     contact@mail.com
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-md-6">
+                <div class="contact-block mb-4 mb-lg-0">
+                    <i class="icofont-location-pin"></i>
+                    <h5>Location</h5>
+                      1 Washington Sq, San Jose, CA 95192
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="contact-form-wrap section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="section-title text-center">
+                    <h2 class="text-md mb-2">Contact us</h2>
+                    <div class="divider mx-auto my-4"></div>
+                    <p class="mb-5">Have questions about our products, support services, or anything else? Let us know and we’ll get back to you.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <form class="form" name="contact_us" method="POST" action="{{ url_for('contact_form_submit') }}">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input name="name" id="name" type="text" class="form-control" placeholder="Your Full Name" >
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input name="email" id="email" type="email" class="form-control" placeholder="Your Email Address">
+                            </div>
+                        </div>
+                         <div class="col-lg-6">
+                            <div class="form-group">
+                                <input name="subject" id="subject" type="text" class="form-control" placeholder="Your Query Topic">
+                            </div>
+                        </div>
+                         <div class="col-lg-6">
+                            <div class="form-group">
+                                <input name="phone" id="phone" type="text" class="form-control" placeholder="Your Phone Number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group-2 mb-4">
+                        <textarea name="message" id="message" class="form-control" rows="8" placeholder="Your Message"></textarea>
+                    </div>
+                    <button class="btn btn-primary btn-md" type="submit" name="Contact">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="d-flex justify-content-sm-center"><h5>For immediate Response, please use our ChatBot.</h5></div>
+<div class="d-flex justify-content-sm-center">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch ChatBot
+</button>
+    </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">PMS ChatBot</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+<iframe
+    allow="microphone;"
+    width="350"
+    height="430"
+    src="https://console.dialogflow.com/api-client/demo/embedded/96039620-67f5-45e0-b241-832f19501f39">
+</iframe>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+          <br>
+          <br>
+<div class="d-flex justify-content-sm-center"><h4>LOCATE US ON</h4></div>
+ <div class="d-flex justify-content-sm-center">
+    <div id="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3172.3092217613985!2d-121.88326018455238!3d37.33518737984199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fccb864de43d5%3A0x397ffe721937340e!2sSan%20Jos%C3%A9%20State%20University!5e0!3m2!1sen!2sus!4v1638218749494!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+</div>
+    <!-- 
+    Essential Scripts
+    =====================================-->
+    
+    <!-- Main jQuery -->
+    <script src="static/styles/plugins/jquery/jquery.js"></script>
+    <!-- Bootstrap 4.3.2 -->
+    <script src="static/styles/plugins/bootstrap/js/popper.js"></script>
+    <script src="static/styles/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/styles/plugins/counterup/jquery.easing.js"></script>
+    <!-- Slick Slider -->
+    <script src="static/styles/plugins/slick-carousel/slick/slick.min.js"></script>
+    <!-- Counterup -->
+    <script src="static/styles/plugins/counterup/jquery.waypoints.min.js"></script>
+    
+    <script src="static/styles/plugins/shuffle/shuffle.min.js"></script>
+    <script src="static/styles/plugins/counterup/jquery.counterup.min.js"></script>
+
+    <script src="static/styles/script.js"></script>
+    <script src="static/styles/contact.js"></script>
+
+ {% endblock %}

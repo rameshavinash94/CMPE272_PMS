@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>PMS</title>
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="static/styles/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Icon Font Css -->
+  <link rel="stylesheet" href="static/styles/plugins/icofont/icofont.min.css">
+  <!-- Slick Slider  CSS -->
+  <link rel="stylesheet" href="static/styles/plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="static/styles/plugins/slick-carousel/slick/slick-theme.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="static/styles/style.css">
+</head>
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+         {% if messages %}
+    <div class="alert alert-warning">
+               {% for message in messages %}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+    </div>
+               {% endfor %}
+         {% endif %}
+      {% endwith %}
+</div>
+<section class="page-title bg-1">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <span class="text-white"></span>
+            <h1 class="text-capitalize mb-5 text-lg">Schedule Slots</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<br>
+<ul class="nav nav-tabs">
+   <li class="active"><a href="#a" data-toggle="tab">Add Appointment slots</a></li>
+   <li><a href="#b" data-toggle="tab">Modify/View Existing Slots</a></li>
+</ul>
+<div class="tab-content">
+   <div class="tab-pane active" id="a">
+<form class="form" action="{{ url_for('save_schedule') }}" method="POST" id="save_schedule" name="save_schedule">
+  <div class="d-flex justify-content-sm-left"><h4>&nbsp;  CHOOSE A DATE </h4></div>
+    <div class="col-lg-6">
+<div class="form-group">
+<select class="form-control-lg" id="Date" name="Schedule">
+{% for x in dates %}
+<option>{{ x }}</option>
+{% endfor %}
+</select>
+    </div>
+</div>
+    <br>
+    <br>
+<div class="col-md-12">
+    <div class="d-flex justify-content-sm-left"><h4><label>PICK YOUR PREFERED TIME SLOT</label></h4></div>
+<div>
+<div class="form-check form-check-inline">
+<label class="custom_check"><input type="checkbox" name="slots" value="08:00"> <span class="checkmark"></span> 8:00 - 9:00</label>
+</div>
+<div class="form-check form-check-inline">
+<label class="custom_check"><input type="checkbox" name="slots" value="09:00"> <span class="checkmark"></span>09:00 - 10:00</label>
+</div>
+<div class="form-check form-check-inline">
+<label class="custom_check"><input type="checkbox" name="slots" value="10:00"> <span class="checkmark"></span> 10:00 - 11:00</label>
+</div>
+<div class="form-check form-check-inline">
+<label class="custom_check"><input type="checkbox" name="slots" value="11:00"> <span class="checkmark"></span> 11:00 - 12:00</label>
+</div>
+<div class="form-check form-check-inline">
+<label class="custom_check"><input type="checkbox" name="slots" value="12:00"> <span class="checkmark"></span> 12:00 - 13:00</label>
+</div>
+<div class="form-check form-check-inline">
+<label class="custom_check"><input type="checkbox" name="slots" value="13:00"> <span class="checkmark"></span> 13:00 - 14:00</label>
+</div>
+<div class="form-check form-check-inline">
+<label class="custom_check"><input type="checkbox" name="slots" value="14:00"> <span class="checkmark"></span> 14:00 - 14:00</label>
+</div>
+<div class="form-check form-check-inline">
+<label class="custom_check"><input type="checkbox" name="slots" value="15:00"> <span class="checkmark"></span> 15:00 - 16:00</label>
+</div>
+<div class="form-check form-check-inline">
+<label class="custom_check"><input type="checkbox" name="slots" value="16:00"> <span class="checkmark"></span> 16:00 - 17:00</label>
+</div>
+<div class="form-check form-check-inline">
+<label class="custom_check"><input type="checkbox" name="slots" value="17:00"> <span class="checkmark"></span> 17:00 - 18:00</label>
+</div>
+</div>
+    <br>
+<button class="btn btn-primary btn-md" type="submit" name="submit_schedule">Add Slots</button>
+</div>
+</form>
+</div>
+   <div class="tab-pane" id="b">
+     <form class="form" id="get_slots" name="get_slots" action="{{ url_for('delete_schedule') }}" method="post">
+  <div class="d-flex justify-content-sm-left"><h4> &nbsp; CHOOSE A DATE </h4></div>
+  <div class="col-lg-6">
+<div class="form-group">
+<select class="form-control-lg" id="Date_drop" name="date_drop">
+    <option>Pick a date</option>
+{% for x in dates %}
+<option>{{ x }}</option>
+{% endfor %}
+</select>
+    <div class="d-flex justify-content-sm-left"><h4> BELOW TIME SLOTS ARE INCLUDED IN YOUR SCHEDULE </h4></div>
+    <div id="log"></div>
+    <div id="delete_slots"></div>
+    <button class="btn btn-primary btn-md" type="submit" name="delete_schedule">Delete Slots</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+<script>
+date_select = document.getElementById('Date_drop');
+date_select.onchange = function(){
+date_sel = date_select.value;
+values=date_sel
+fetch('display_slots/' + values).then(function(response){
+response.json().then(function(data) {
+document.getElementById('log').innerHTML=''
+for (data of data.slots){
+document.getElementById('log').innerHTML +='<label class="checkbox-inline"><input type="checkbox" name="delete_slots" value=" ' + data + '">' + data + '</label>'
+}
+document.getElementById('delete_slots').innerHTML ='<h5> Select the above checkbox to remove the selected slots for that day</h5>'
+});
+});
+}
+</script>
+    <!-- jQuery -->
+    <script src="static/styles/jquery.min.js"></script>
+    <!-- Bootstrap Core JS -->
+    <script src="static/styles/popper.min.js"></script>
+    <script src="static/styles/bootstrap.min.js"></script>
+    <!-- Sticky Sidebar JS -->
+        <script src="static/styles/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="static/styles/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+    <!-- Select2 JS -->
+    <script src="static/styles/plugins/select2/js/select2.min.js"></script>
+    <!-- Custom JS -->
+    <script src="static/styles/script.js"></script>
+{% endblock %}

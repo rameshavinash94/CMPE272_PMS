@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block body %}
+<hr>
+<div class="container bootstrap snippet">
+    <div class="row">
+  		<div class="col-sm-10"><h1>{{first_name}}</h1></div>
+    </div>
+    <div class="row">
+  		<div class="col-sm-3"><!--left col-->
+      <div class="text-center">
+        <img src="{{ image_url }}" class="avatar img-circle img-thumbnail" alt="avatar">
+        <h6>To Upload a different photo/avatar,please visit gravatar.com and add your photo</h6>
+      </div></hr><br>
+          <ul class="list-group">
+            <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Appointments Completed: {{ completed }}</strong></span></li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Cancelled Appointments:  {{ cancelled }}</strong></span></li>
+          </ul>
+        </div><!--/col-3-->
+    	<div class="col-sm-9">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#profile">Profile</a></li>
+              </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="profile">
+                <hr>
+                  <form class="form" action="{{ url_for('update_profile') }}" method="post" id="registrationForm">
+                      <div class="form-group">
+                          <div class="col-xs-6">
+                              <label for="first_name"><h4>First name</h4></label>
+                              <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" title="enter your first name if any." value={{first_name}}>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <div class="col-xs-6">
+                            <label for="last_name"><h4>Last name</h4></label>
+                              <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" title="enter your last name if any." value ={{last_name}}>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <div class="col-xs-6">
+                              <label for="phone"><h4>Phone</h4></label>
+                              <input type="phone" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any."value ={{phone_number}}>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <div class="col-xs-6">
+                              <label for="Speciality"><h4>Speciality</h4></label>
+                              <input type="text" class="form-control" name="specilality" id="specilality" value ={{doctor_specilization}} disabled>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <div class="col-xs-6">
+                              <label for="age"><h4>Age</h4></label>
+                              <input type="age" class="form-control" name="age" id="age" placeholder="Your Age" title="enter your Age." value={{age}}>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <div class="col-xs-6">
+                              <label for="age"><h4>Experience</h4></label>
+                              <input type="experience" class="form-control" name="experience" id="experience" placeholder="Experience in Years" title="Experience in years" value={{experience}}>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                           <div class="col-xs-12">
+                                <br>
+                              	<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save Changes</button>
+                            </div>
+                      </div>
+            	</form>
+              <hr>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
